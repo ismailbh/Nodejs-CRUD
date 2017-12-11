@@ -1,3 +1,5 @@
+var uuid = require('uuid/v4')
+
 let data = [
   { name: 'What young India wants', author: 'Chetan Bhagat', category: 'Non fiction', price: '87', releaseDate: '2012-08-06', isbn: '812913554X;978-8129135544' },
   { name: 'Two States', author: 'Chetan Bhagat', category: 'Novel', price: '89', releaseDate: '2014-04-18', isbn: '8129135523;978-8129135520' },
@@ -18,6 +20,17 @@ exports.finById = function (req, res) {
   res.send(data.find(book => book.isbn === req.params.id));
 }
 
-// exports.finById = function(rea, res){
-//   res.send
-// }
+//Create new book
+exports.create = function (req, res) {
+  let newData = req.body.book
+  newData.isbn = uuid();
+  data.push(newData);
+  res.send(data);
+}
+
+// Delete book
+exports.destroy = function (req, res) {
+  const val = data.find(book => book.isbn == req.params.id);
+  const index = data.indexOf(val);
+  res.send(data.splice(index, 1));
+}
