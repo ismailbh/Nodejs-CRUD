@@ -34,3 +34,20 @@ exports.destroy = function (req, res) {
   const index = data.indexOf(val);
   res.send(data.splice(index, 1));
 }
+
+//Update book
+exports.update = function (req, res) {
+  const { body: { book } } = req;
+  const oldBook = data.find(b => b.isbn == req.params.id);
+  const index = data.indexOf(oldBook);
+  data.splice(index, 1, book)
+  res.send(data);
+}
+
+exports.patch = function(req, res){
+  const { body: { book } } = req;
+  const oldBook = data.find(b => b.isbn == req.params.id);
+  const index = data.indexOf(oldBook);
+  data.splice(index, 1, Object.assign(oldBook, book));
+  res.send(data);
+}
