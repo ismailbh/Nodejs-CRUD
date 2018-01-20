@@ -10,6 +10,16 @@ function respondWithResult(res, statusCode) {
   }
 }
 
+function handleEntityNotFound(res, statusCode) {
+  return entity => {
+    if (!entity) {
+      res.status(404).end({})
+      return null
+    }
+    return entity;
+  }
+}
+
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return err => {
