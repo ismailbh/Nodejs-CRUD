@@ -1,11 +1,13 @@
 {
   "name": "nodejs-mongodb-api",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "example of using nodejs mongodb",
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www"
   },
   "repository": "https://github.com/ismailbh/nodejs-mongodb-api.git",
+  "author": "Ben Hamouda Ismail",
   "dependencies": {
     "bluebird": "^3.5.1",
     "body-parser": "~1.18.2",
