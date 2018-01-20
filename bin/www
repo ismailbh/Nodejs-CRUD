@@ -14,7 +14,7 @@ mongoose.Promise = require("bluebird");
  * Connect to MongooDB
  */
 mongoose.connect("mongodb://localhost/api_mongo");
-const db = mongoose.connction;
+const db = mongoose.connection;
 db
   .on("error", err => {
     console.log("MongoDB connection error: ", err);
