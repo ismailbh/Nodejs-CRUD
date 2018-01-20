@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     lowercase: true
   },
-  password: String,
+  password: String
 });
 
-module.exports = momgoose.module('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);
