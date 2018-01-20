@@ -31,6 +31,23 @@ function handleEntityNotFoundObj(res, uuid) {
   }
 }
 
+function removeEntity1(res) {
+  return entity => {
+    if (entity) {
+      return entity.removeAsync()
+        .then(() => {
+          res.status(204).end();
+        })
+    }
+  }
+}
+
+function removeEntity2(res) {
+  return entity => {
+    res.status(204).end();
+  }
+}
+
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return err => {
@@ -57,6 +74,34 @@ exports.show = (req, res) => {
 exports.showUuid = (req, res) => {
   User.findAsync()
     .then(handleEntityNotFoundObj(res, req.params.uuid))
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
+// Creates new User
+exports.create = (req, res) => {
+  req.body.user.uuid = uuid();
+  User.createAsync(req.body.user)
+    .then(respondWithResult(res, 201))
+    .then(handleError(res));
+}
+
+// Deletes User
+exports.destroy1 = (req, res) => {
+  User.findByIdAsync(req.params.id)
+    .then(handleEntityNotFound(res))
+    .then(removeEntity1(res))
+    .catch(handleError(res));
+}
+exports.destroy2 = (req, res) => {
+  User.findByIdAndRemoveAsync(req.params.id)
+    .then(removeEntity2(res))
+    .catch(handleError(res));
+}
+
+// Updates User
+exports.update = (req, res) => {
+  User.findByIdAndUpdateAsync(req.params.id, req.body.user, {new: true})
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
