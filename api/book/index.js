@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-var { index, show, showUuid, create } = require('./book.controller');
+var { index, show } = require('./book.controller');
 
 
 router.get('/', index);
